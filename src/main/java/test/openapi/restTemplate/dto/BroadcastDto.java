@@ -1,4 +1,4 @@
-package test.openapi.dto;
+package test.openapi.restTemplate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
