@@ -2,8 +2,10 @@ package test.openapi.java8;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -28,6 +30,7 @@ public class Foo {
 
 
         log.info("[FUNCTION] andthen :{}", plus.andThen(composeInteger).toString());
+        log.info("[FUNCTION] compose :{}", plus.compose(multiple));
 
         Consumer<Integer> printT = (i) -> System.out.println(i);
 
@@ -44,6 +47,27 @@ public class Foo {
 
         UnaryOperator<Integer> plus10 = integer -> integer + 100;
 
+        Supplier<Integer> getInteger = () -> 10;
 
+        BinaryOperator<Integer> getIntegerBinary = (t, r) -> t + r;
+
+        Foo foo = new Foo();
+
+        foo.run();
     }
+
+    private void run() {
+
+        int baseNumber = 10;
+
+        IntConsumer printInt = (i) -> System.out.println(i + baseNumber); // 변수 캡쳐 익명함수에서 사용하던 거
+        printInt.accept(10);
+
+        class LocalClass {
+            void printBaseNumber() {
+                baseNumber ++;
+            }
+        }
+    }
+
 }
