@@ -2,6 +2,8 @@ package test.openapi.java8;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -54,20 +56,39 @@ public class Foo {
         Foo foo = new Foo();
 
         foo.run();
+
+        Function<Integer, String> intToString = (i) -> "number";
+
+        UnaryOperator<String> hi = (s) -> "hi" + s;
+
+        UnaryOperator<String> hiForGreeting = Greeting::hi;
+
+        Greeting greeting = new Greeting();
+        UnaryOperator<String> hello = greeting::hello; // static 이 아니라 인스턴스 메소드라서
+        System.out.println("hello" + hello.apply("어진"));
+
+        Supplier<Greeting> newGreeting = Greeting::new;
+        newGreeting.get();
+
+        // 생성자 참조
+        Function<String, Greeting> eojinGreeting = Greeting::new;
+        Greeting eojin = eojinGreeting.apply("eojin");
+
+        System.out.println(eojin.getName());
+
+        String[] names = {"eojin", "hj", "jh"};
+
+        Arrays.sort(names, String::compareToIgnoreCase); // compareToIgnoreCase 임의의 객체를 참조
+
+        System.out.println(names.toString());
     }
 
     private void run() {
-
         int baseNumber = 10;
 
         IntConsumer printInt = (i) -> System.out.println(i + baseNumber); // 변수 캡쳐 익명함수에서 사용하던 거
         printInt.accept(10);
 
-        class LocalClass {
-            void printBaseNumber() {
-                baseNumber ++;
-            }
-        }
     }
 
 }
