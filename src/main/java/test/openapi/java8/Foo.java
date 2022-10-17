@@ -63,6 +63,8 @@ public class Foo {
 
         UnaryOperator<String> hiForGreeting = Greeting::hi;
 
+        System.out.println(hi);
+
         Greeting greeting = new Greeting();
         UnaryOperator<String> hello = greeting::hello; // static 이 아니라 인스턴스 메소드라서
         System.out.println("hello" + hello.apply("어진"));
